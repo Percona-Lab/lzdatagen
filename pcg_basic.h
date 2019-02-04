@@ -32,6 +32,9 @@
 #define PCG_BASIC_H_INCLUDED 1
 
 #include <inttypes.h>
+#include <time.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #if __cplusplus
 extern "C" {

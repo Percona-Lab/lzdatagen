@@ -22,8 +22,9 @@ endif
 objs = lzdgen.o lzdatagen.o parg.o pcg_basic.o
 
 target = lzdgen
+target_so = liblzdgen.so
 
-all: $(target)
+all: $(target) $(target_so)
 
 %.o : %.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) -c -o $@ $<
@@ -31,8 +32,11 @@ all: $(target)
 $(target): $(objs)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $^ $(LDLIBS) -o $@
 
+$(target_so):	$(objs)
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $^ $(LDLIBS) -o $@ -fPIC -shared -lc
+
 clean:
-	$(RM) $(objs) $(target)
+	$(RM) $(objs) $(target) $(target_so)
 
 lzdgen.o: lzdatagen.h parg.h pcg_basic.h
 lzdatagen.o: lzdatagen.h

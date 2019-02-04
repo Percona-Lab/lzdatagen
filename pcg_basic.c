@@ -34,6 +34,14 @@
 
 static pcg32_random_t pcg32_global = PCG32_INITIALIZER;
 
+void
+init_lzdgen(uint64_t seed)
+{
+   if (!seed)
+     seed= time(NULL) ^ (intptr_t) &printf;
+   pcg32_srandom(seed, 0xC0FFEE);
+}
+
 // pcg32_srandom(initstate, initseq)
 // pcg32_srandom_r(rng, initstate, initseq):
 //     Seed the rng.  Specified in two parts, state initializer and a
